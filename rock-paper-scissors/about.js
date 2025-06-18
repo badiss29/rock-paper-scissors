@@ -1,3 +1,13 @@
+const human = document.querySelector("#human")
+const computer = document.querySelector("#computer")
+const result = document.querySelector("#result")
+const rockButton = document.querySelector("#rock")
+const displayHumanScore = document.querySelector("#displayHumanScore")
+const displayComputerScore = document.querySelector("#displayComputerScore")
+const displayWinner = document.querySelector("#displayWinner")
+const buttons = document.querySelector("#buttons")
+
+
 function getComputerChoice() {
     const randomvalue = Math.random()
     if (randomvalue<0.33) {
@@ -8,15 +18,19 @@ function getComputerChoice() {
         return "scissors"  
     }  
 }
-
-
-    function getHumanChoice () {
-        let choose = prompt("enter ur choice 'rock' 'paper' 'scissors' ")
-        return choose.toLowerCase()
-}
+// i remove my getHumanChoice function
 
 let humanScore = 0
 let computerScore = 0 
+function checkWinner() {
+    if (humanScore === 5) {
+      displayWinner.innerHTML = "human win"
+    } else if(computerScore === 5) {
+      displayWinner.innerHTML = "computer win"
+    }else if (humanScore=== 5 || computerScore=== 5) {
+      buttons.innerHTML = ''
+    }
+  }
 
 function playRound(humanChoice , computerChoice) {
   if (humanChoice===computerChoice) {
@@ -43,21 +57,39 @@ function playRound(humanChoice , computerChoice) {
     humanScore++
     return "you win ! scissors beat paper"
   }
-}
-let humanChoice = getHumanChoice()
-let computerChoice = getComputerChoice()
-console.log(humanChoice);
-console.log(computerChoice);
-const result = playRound(humanChoice, computerChoice)
-console.log(result)
-function playGame() {
-  for (let itr = 1; itr < 5; itr++) {
-    let humanChoice = getHumanChoice();
-    console.log(humanChoice);
-    let computerChoice = getComputerChoice()
-    console.log(computerChoice);
-    console.log(playRound(humanChoice,computerChoice))
-  }
   
 }
-playGame()
+
+// i remove my playgame function 
+rockButton.addEventListener("click" , ()=>{
+  const computerChoice =getComputerChoice()
+  computer.innerHTML = computerChoice
+  human.innerHTML = "rock"
+  result.innerHTML= playRound("rock",computerChoice)
+    displayHumanScore.innerHTML = humanScore
+  displayComputerScore.innerHTML = computerScore
+  checkWinner()
+})
+const paperButton = document.querySelector("#paper")
+paperButton.addEventListener("click" , ()=>{
+  const computerChoice =getComputerChoice()
+  computer.innerHTML = computerChoice
+  human.innerHTML = "paper"
+  result.innerHTML=playRound("paper" , computerChoice)
+  displayHumanScore.innerHTML = humanScore
+  displayComputerScore.innerHTML = computerScore
+  checkWinner()
+})
+const scissorsButton = document.querySelector("#scissors")
+scissorsButton.addEventListener("click" , ()=>{
+  const computerChoice =getComputerChoice()
+  computer.innerHTML = computerChoice
+  human.innerHTML = "scissors"
+  result.innerHTML=playRound("scissors" , computerChoice)
+  displayHumanScore.innerHTML = humanScore
+  displayComputerScore.innerHTML = computerScore
+  checkWinner()
+})
+
+  
+
